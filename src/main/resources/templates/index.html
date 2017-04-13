@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<!--获取单个元素-->
+<p th:text="${test}"></p>
+<!--获取对象某个属性-->
+<p th:text="${user.name}"></p>
+<!--遍历对象集合-->
+<table>
+    <tr>
+        <th>序号</th>
+        <th>name</th>
+        <th>age</th>
+    </tr>
+    <tr th:each="user:${list}">
+        <td th:text="${userStat.count}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.age}"></td>
+    </tr>
+<!--运算符 sum=100 -->
+</table>
+<P th:text="${sum}/2"></P>
+<a th:href="@{http://www.baidu.com}">起飞</a>--------------<a href="http://www.baidu.com">走起</a>
+<br/>
+<a th:href="@{/test}">再一次飞翔</a>
+<br/>
+<a th:href="@{/test(id=3)}">累死也要飞</a>
+<!--switch-->
+<div th:switch="${user.name}">
+   <P th:case="sher">admin</P>
+</div>
+<!--包含 hello是html名称,copy为fragment名-->
+<P th:include="hello::copy"></P>
+<P th:replace="hello::copy"></P>
+<P th:replace="hello::#copy-section"></P>
+<form th:action="@{/add}" th:object="${user}" method="post" th:method="post">
+    <input type="text" name="name" th:field="*{name}"/>
+    <input type="text" name="age" th:field="*{age}"/>
+    <input type="submit"/>
+</form>
+
+<span th:if="${sher.age lt 12}" class="offer">Special offer!</span>
+　　 <!--除非resume对象的name属性不为空，否则就定义一个field方便封装对象，并用placeholder提示-->
+<input type="text" th:field="${resume.name}" class="form-control" th:unless="${resumes.name} ne null"
+       data-required="true" th:placeholder="请填写您的真实姓名"  />
+</body>
+</html>
